@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "269152524255",
+    "firebase_url": "https://gaming-insider.firebaseio.com",
+    "project_id": "gaming-insider",
+    "storage_bucket": "gaming-insider.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269152524255:android:fde67906e6081057",
+        "android_client_info": {
+          "package_name": "br.com.andre.gomes.oliveira.gaminginsider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269152524255-1rfsuj2bc1qihnfbfrjvn51k51u8ogih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.andre.gomes.oliveira.gaminginsider",
+            "certificate_hash": "96b02b166e8c1151b9c99ea2757d338d03b9978c"
+          }
+        },
+        {
+          "client_id": "269152524255-r08rhcm88r150eaiuh18b8rdnd0sl36c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqsLk3zbFIgEfVHBqS9y5lEl3Aig5Boig"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269152524255-r08rhcm88r150eaiuh18b8rdnd0sl36c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
