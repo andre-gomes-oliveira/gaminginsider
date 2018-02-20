@@ -56,6 +56,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.facebook.android:facebook-login:4.30.0'
+    // FirebaseUI for Firebase Auth
+    implementation 'com.firebaseui:firebase-ui-auth:3.2.1'
     /* Picasso */
     implementation 'com.squareup.picasso:picasso:2.5.2'
     /* Butterknife */
