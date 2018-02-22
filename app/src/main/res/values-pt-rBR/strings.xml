@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Itens de interface -->
-    <string name="action_settings">Configurações</string>
+    <string name="action_logout">Configurações</string>
     <string name="firebase_categories">Categorias</string>
 
     <!-- Acessibilidade -->
