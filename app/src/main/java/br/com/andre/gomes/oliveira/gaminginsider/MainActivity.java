@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseUser mUser;
     private DatabaseReference mCategoriesDatabaseReference;
     private ChildEventListener mChildEventListener;
 
@@ -81,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                mUser = firebaseAuth.getCurrentUser();
+                if (mUser != null) {
                     // User is signed in
                     onSignedInInitialize();
                 } else {
@@ -135,9 +139,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
-            if (resultCode == RESULT_OK) {
-                //TODO: get the user's information to update the ui
-            }
             if (resultCode == RESULT_CANCELED) {
                 finish();
             }
@@ -170,6 +171,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void onSignedInInitialize() {
         attachDatabaseReadListener();
+
+        TextView userNameView = findViewById(R.id.tv_user_name);
+        TextView userEmailView = findViewById(R.id.tv_user_email);
+        ImageView avatarView = findViewById(R.id.iv_user_avatar);
+
+        userNameView.setText(mUser.getDisplayName());
+        userEmailView.setText(mUser.getEmail());
+
+                /* No need for an error image or a placeholder
+                *  If no image can be loaded, the default from the nav_header layout will be used
+                */
+        Picasso.with(this)
+                .load( mUser.getPhotoUrl())
+                .into(avatarView);
     }
 
     private void onSignedOutCleanup() {
