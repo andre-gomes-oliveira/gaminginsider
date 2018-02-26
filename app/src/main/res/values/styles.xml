@@ -1,11 +1,11 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorAccentText</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -14,8 +14,61 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:elevation">@dimen/bar_elevation</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:paddingTop">@dimen/bar_elevation</item>
+    </style>
+
+    <!-- Title theme -->
+    <style name="TitleTheme" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:paddingTop">@dimen/title_padding_top</item>
+        <item name="android:paddingLeft">@dimen/title_padding_left</item>
+        <item name="android:paddingRight">@dimen/title_padding_right</item>
+        <item name="android:paddingBottom">@dimen/title_padding_bottom</item>
+        <item name="android:textSize">@dimen/article_title_text_size</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">@integer/title_max_lines</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Subtitle theme -->
+    <style name="SubtitleTheme" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:paddingLeft">@dimen/title_padding_left</item>
+        <item name="android:paddingRight">@dimen/title_padding_right</item>
+        <item name="android:paddingBottom">@dimen/title_padding_bottom</item>
+        <item name="android:textSize">@dimen/article_subtitle_text_size</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:maxLines">@integer/subtitle_max_lines</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Plain text theme -->
+    <style name="plainTextTheme">
+        <item name="android:layout_marginStart">@dimen/article_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/article_horizontal_margin</item>
+        <item name="android:paddingTop">@dimen/article_padding_top</item>
+        <item name="android:paddingLeft">@dimen/article_padding_left</item>
+        <item name="android:paddingRight">@dimen/article_padding_right</item>
+        <item name="android:paddingBottom">@dimen/article_padding_bottom</item>
+        <item name="android:textSize">@dimen/article_body_text_size</item>
+        <item name="android:textColor">@color/colorAccentText</item>
+        <item name="android:textColorLink">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimaryText</item>
+    </style>
+
+    <!-- Floating Action Button theme -->
+    <style name="floatingButtonTheme">
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_marginBottom">@dimen/fab_margin</item>
+        <item name="android:layout_marginEnd">@dimen/fab_margin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:elevation">@dimen/fab_elevation</item>
+    </style>
 
 </resources>

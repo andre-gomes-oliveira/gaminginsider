@@ -4,6 +4,16 @@
     <string name="action_logout">Configurações</string>
     <string name="firebase_categories">Categorias</string>
 
+    <!-- Gaveta de navegaçãor -->
+    <string name="menu_add">Adicionar uma novo feed RSS</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="menu_options">Opções</string>
+    <string name="menu_category_all">Todos</string>
+    <string name="menu_category_articles">Artigos</string>
+    <string name="menu_category_News">Notícias</string>
+    <string name="menu_category_reviews">Resenhas</string>
+    <string name="menu_category_user">Seus feeds</string>
+
     <!-- Acessibilidade -->
     <string name="content_description_avatar">Avatar do usuário</string>
 

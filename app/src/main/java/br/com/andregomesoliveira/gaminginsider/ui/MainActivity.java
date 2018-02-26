@@ -1,4 +1,4 @@
-package br.com.andre.gomes.oliveira.gaminginsider;
+package br.com.andregomesoliveira.gaminginsider.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +24,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import br.com.andregomesoliveira.gaminginsider.R;
+import br.com.andregomesoliveira.gaminginsider.model.Category;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -50,10 +54,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private FirebaseDatabase mFirebaseDatabase;
     private FirebaseUser mUser;
     private DatabaseReference mCategoriesDatabaseReference;
     private ChildEventListener mChildEventListener;
+
+    //The list of news categories
+    private List<Category> mCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Setting up Firebase
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mCategoriesDatabaseReference = mFirebaseDatabase.getReference(getString(R.string.firebase_categories));
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mCategoriesDatabaseReference = database.getReference(getString(R.string.firebase_categories));
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -103,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         };
+
+        mCategories = new ArrayList<>();
     }
 
     @Override
@@ -145,28 +153,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (item.getItemId()) {
+            case R.id.nav_category_all:
+                mDrawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_category_articles:
+                mDrawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_category_news:
+                mDrawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_category_reviews:
+                mDrawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_category_user:
+                mDrawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_add:
+                mDrawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_settings:
+                mDrawer.closeDrawer(GravityCompat.START);
+                return true;
+            default:
+                mDrawer.closeDrawer(GravityCompat.START);
+                return true;
         }
-
-        mDrawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void onSignedInInitialize() {
@@ -179,11 +193,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userNameView.setText(mUser.getDisplayName());
         userEmailView.setText(mUser.getEmail());
 
-                /* No need for an error image or a placeholder
-                *  If no image can be loaded, the default from the nav_header layout will be used
-                */
+        /* No need for an error image or a placeholder
+           If no image can be loaded, the default from the nav_header layout will be used
+        */
         Picasso.with(this)
-                .load( mUser.getPhotoUrl())
+                .load(mUser.getPhotoUrl())
                 .into(avatarView);
     }
 
@@ -196,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mChildEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    mCategories.add(dataSnapshot.getValue(Category.class));
                 }
 
                 @Override
@@ -204,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    mCategories.remove(dataSnapshot.getValue(Category.class));
                 }
 
                 @Override
@@ -224,6 +240,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mChildEventListener = null;
         }
     }
-
-
 }

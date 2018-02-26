@@ -3,42 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <!-- Placeholder groups, used to have an idea of the layout before hooking it with Firebase -->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import"
-            tools:ignore="HardcodedText" />
+            android:id="@+id/nav_category_all"
+            android:title="@string/menu_category_all" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery"
-            tools:ignore="HardcodedText" />
+            android:id="@+id/nav_category_articles"
+            android:title="@string/menu_category_articles" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow"
-            tools:ignore="HardcodedText" />
+            android:id="@+id/nav_category_news"
+            android:title="@string/menu_category_News" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools"
-            tools:ignore="HardcodedText" />
+            android:id="@+id/nav_category_reviews"
+            android:title="@string/menu_category_reviews" />
+        <item
+            android:id="@+id/nav_category_user"
+            android:title="@string/menu_category_user" />
     </group>
 
-    <item android:title="Communicate"
-        tools:ignore="HardcodedText">
+    <item android:title="@string/menu_options">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_add"
+                android:icon="@drawable/ic_menu_add"
+                android:title="@string/menu_add" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_settings"
+                android:title="@string/menu_settings" />
         </menu>
     </item>
-
 </menu>

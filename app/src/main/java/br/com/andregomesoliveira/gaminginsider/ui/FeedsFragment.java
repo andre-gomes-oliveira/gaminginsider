@@ -1,4 +1,4 @@
-package br.com.andre.gomes.oliveira.gaminginsider;
+package br.com.andregomesoliveira.gaminginsider.ui;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,12 +13,17 @@ import com.prof.rssparser.Parser;
 
 import java.util.ArrayList;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class MainActivityFragment extends Fragment {
+import br.com.andregomesoliveira.gaminginsider.R;
+import br.com.andregomesoliveira.gaminginsider.model.Category;
 
-    public MainActivityFragment() {
+public class FeedsFragment extends Fragment {
+
+    /**
+     * The Category of feeds this fragment is presenting.
+     */
+    private Category mCategory;
+
+    public FeedsFragment() {
 
         String urlString = "http://feeds.ign.com/ign/all";
         Parser parser = new Parser();

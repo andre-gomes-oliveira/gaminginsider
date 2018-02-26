@@ -1,4 +1,4 @@
-package br.com.andre.gomes.oliveira.gaminginsider;
+package br.com.andregomesoliveira.gaminginsider;
 
 import org.junit.Test;
 

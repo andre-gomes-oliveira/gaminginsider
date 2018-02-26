@@ -1,4 +1,4 @@
-package br.com.andre.gomes.oliveira.gaminginsider;
+package br.com.andregomesoliveira.gaminginsider;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
