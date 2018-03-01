@@ -20,6 +20,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Intents -->
+    <string name="intent_category" translatable="false">category_intent</string>
+
     <!-- General purpose strings, not shown to the user or not translatable-->
     <string name="app_name" translatable="false">Gaming Insider</string>
     <string name="facebook_application_id" translatable="false">417364918696108</string>

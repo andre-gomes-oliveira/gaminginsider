@@ -26,7 +26,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.andregomesoliveira.gaminginsider.R;
 import br.com.andregomesoliveira.gaminginsider.model.Category;
@@ -155,8 +157,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Bundle arguments = new Bundle();
+
         switch (item.getItemId()) {
             case R.id.nav_category_all:
+
+                //arguments.putParcelable(getString(R.string.category_intent), mRecipe);
                 mDrawer.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_category_articles:

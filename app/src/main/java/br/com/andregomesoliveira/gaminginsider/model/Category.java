@@ -3,24 +3,24 @@ package br.com.andregomesoliveira.gaminginsider.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class Category implements Parcelable {
 
     private String name;
-    private List<Source> sources;
+    private HashMap<String, String> sources;
 
     public Category() {
     }
 
-    public Category(String name, List<Source> sources) {
+    public Category(String name, HashMap<String, String> sources) {
         this.name = name;
         this.sources = sources;
     }
 
     private Category(Parcel parcel) {
         this.name = parcel.readString();
-        this.sources = parcel.createTypedArrayList(Source.CREATOR);
+        this.sources = (HashMap<String, String>) parcel.readHashMap(String.class.getClassLoader());
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Category implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(name);
-        parcel.writeTypedList(sources);
+        parcel.writeMap(sources);
     }
 
     public String getName() {
@@ -42,11 +42,11 @@ public class Category implements Parcelable {
         this.name = name;
     }
 
-    public List<Source> getSources() {
+    public HashMap<String, String> getSources() {
         return sources;
     }
 
-    public void setSources(List<Source> sources) {
+    public void setSources(HashMap<String, String> sources) {
         this.sources = sources;
     }
 
