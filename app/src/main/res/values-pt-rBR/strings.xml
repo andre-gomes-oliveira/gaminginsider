@@ -12,12 +12,14 @@
     <string name="menu_category_articles">Artigos</string>
     <string name="menu_category_News">Notícias</string>
     <string name="menu_category_reviews">Resenhas</string>
-    <string name="menu_category_user">Seus feeds</string>
+    <string name="menu_category_generated">Seus feeds</string>
 
     <!-- Acessibilidade -->
     <string name="content_description_avatar">Avatar do usuário</string>
+    <string name="content_description_feed_image">Uma imagem que representa esta notícia</string>
 
     <!-- Mensagens -->
     <string name="navigation_drawer_close">Fechar a gaveta de navegação</string>
     <string name="navigation_drawer_open">Abrir a gaveta de navegação</string>
+    <string name="error_loading_message">Erro ao carregar os feeds, verifique sua conexão com a internet</string>
 </resources>

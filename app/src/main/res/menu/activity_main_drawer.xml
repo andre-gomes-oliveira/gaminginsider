@@ -11,14 +11,14 @@
             android:id="@+id/nav_category_articles"
             android:title="@string/menu_category_articles" />
         <item
+            android:id="@+id/nav_category_generated"
+            android:title="@string/menu_category_generated" />
+        <item
             android:id="@+id/nav_category_news"
             android:title="@string/menu_category_News" />
         <item
             android:id="@+id/nav_category_reviews"
             android:title="@string/menu_category_reviews" />
-        <item
-            android:id="@+id/nav_category_user"
-            android:title="@string/menu_category_user" />
     </group>
 
     <item android:title="@string/menu_options">

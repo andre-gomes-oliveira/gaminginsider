@@ -11,14 +11,16 @@
     <string name="menu_category_articles">Articles</string>
     <string name="menu_category_News">News</string>
     <string name="menu_category_reviews">Reviews</string>
-    <string name="menu_category_user">Your feeds</string>
+    <string name="menu_category_generated">Your feeds</string>
 
     <!-- Accessibility -->
     <string name="content_description_avatar">User avatar</string>
+    <string name="content_description_feed_image">An image that represents this feed</string>
 
     <!-- Messages -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="error_loading_message">Error loading the feeds, check your internet connection</string>
 
     <!-- Intents -->
     <string name="intent_category" translatable="false">category_intent</string>

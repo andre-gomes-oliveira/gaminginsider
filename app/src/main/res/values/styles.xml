@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <item name="android:textColorSecondary">@color/colorAccentText</item>
     </style>
@@ -47,7 +48,7 @@
     </style>
 
     <!-- Plain text theme -->
-    <style name="plainTextTheme">
+    <style name="PlainTextTheme">
         <item name="android:layout_marginStart">@dimen/article_horizontal_margin</item>
         <item name="android:layout_marginEnd">@dimen/article_horizontal_margin</item>
         <item name="android:paddingTop">@dimen/article_padding_top</item>
@@ -58,6 +59,18 @@
         <item name="android:textColor">@color/colorAccentText</item>
         <item name="android:textColorLink">@color/colorAccent</item>
         <item name="android:background">@color/colorPrimaryText</item>
+    </style>
+
+    <!-- Card View Theme -->
+    <style name="CardViewTheme" parent="CardView.Dark">
+        <item name="android:layout_marginTop">@dimen/card_vertical_margin</item>
+        <item name="android:layout_marginStart">@dimen/card_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/card_horizontal_margin</item>
+        <item name="android:layout_marginBottom">@dimen/card_vertical_margin</item>
+        <item name="android:paddingTop">@dimen/card_padding_top</item>
+        <item name="android:paddingStart">@dimen/card_padding_start</item>
+        <item name="android:paddingEnd">@dimen/card_padding_end</item>
+        <item name="android:paddingBottom">@dimen/card_padding_bottom</item>
     </style>
 
     <!-- Floating Action Button theme -->

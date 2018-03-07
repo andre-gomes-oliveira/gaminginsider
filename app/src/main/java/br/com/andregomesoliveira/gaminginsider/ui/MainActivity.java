@@ -26,9 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import br.com.andregomesoliveira.gaminginsider.R;
 import br.com.andregomesoliveira.gaminginsider.model.Category;
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference mCategoriesDatabaseReference;
     private ChildEventListener mChildEventListener;
 
-    //The list of news categories
+    //The map of news categories
     private List<Category> mCategories;
 
     @Override
@@ -129,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -161,32 +158,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
             case R.id.nav_category_all:
-
-                //arguments.putParcelable(getString(R.string.category_intent), mRecipe);
-                mDrawer.closeDrawer(GravityCompat.START);
-                return true;
+                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(0));
+                break;
             case R.id.nav_category_articles:
-                mDrawer.closeDrawer(GravityCompat.START);
-                return true;
+                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(1));
+                break;
+            case R.id.nav_category_generated:
+                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(2));
+                break;
             case R.id.nav_category_news:
-                mDrawer.closeDrawer(GravityCompat.START);
-                return true;
+                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(3));
+                break;
             case R.id.nav_category_reviews:
-                mDrawer.closeDrawer(GravityCompat.START);
-                return true;
-            case R.id.nav_category_user:
-                mDrawer.closeDrawer(GravityCompat.START);
-                return true;
+                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(4));
+                break;
             case R.id.nav_add:
                 mDrawer.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_settings:
                 mDrawer.closeDrawer(GravityCompat.START);
                 return true;
-            default:
-                mDrawer.closeDrawer(GravityCompat.START);
-                return true;
         }
+
+        FeedsFragment fragment = new FeedsFragment();
+        fragment.setArguments(arguments);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_feeds, fragment)
+                .commit();
+        mDrawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private void onSignedInInitialize() {

@@ -5,6 +5,7 @@
     <color name="colorPrimary">#006064</color>
     <color name="colorPrimaryDark">#00363a</color>
     <color name="colorPrimaryLight">#b2dfdb</color>
+    <color name="colorBackground">#263238</color>
 
     <!-- Accent colors -->
     <color name="colorAccent">#ff6e40</color>
@@ -12,7 +13,7 @@
     <color name="colorAccentLight">#ffa06d</color>
 
     <!-- Text colors -->
-    <color name="colorPrimaryText">#000000</color>
-    <color name="colorAccentText">#ffffff</color>
+    <color name="colorPrimaryText">#ffffff</color>
+    <color name="colorAccentText">#000000</color>
 
 </resources>

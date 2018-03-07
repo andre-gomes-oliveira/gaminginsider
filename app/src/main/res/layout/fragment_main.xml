@@ -7,13 +7,36 @@
     tools:context="br.com.andregomesoliveira.gaminginsider.ui.FeedsFragment"
     tools:showIn="@layout/activity_main">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/feeds_list"
+            android:name="br.com.andregomesoliveira.gaminginsider.ui.FeedListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/article_horizontal_margin"
+            android:layout_marginStart="@dimen/article_horizontal_margin"
+            android:layout_marginTop="@dimen/article_vertical_margin"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:spanCount="@integer/list_column_count"
+            tools:context="br.com.andregomesoliveira.gaminginsider.ui.FeedsFragment"
+            tools:listitem="@layout/feed_list_content" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <TextView
+        android:id="@+id/tv_error_message"
+        style="@style/PlainTextTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/error_loading_message"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
