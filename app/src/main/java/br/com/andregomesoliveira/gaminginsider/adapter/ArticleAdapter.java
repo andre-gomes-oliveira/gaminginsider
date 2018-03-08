@@ -56,7 +56,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         final String pubDateString = dateFormat.format(date);
 
         viewHolder.title.setText(currentArticle.getTitle());
-        if(!currentArticle.getImage().isEmpty()){
+        if(currentArticle.getImage() != null &&
+                !currentArticle.getImage().isEmpty()){
             Picasso.with(mContext)
                     .load(currentArticle.getImage())
                     .placeholder(R.drawable.placeholder)
@@ -67,7 +68,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         else{
             viewHolder.image.setVisibility(View.INVISIBLE);
         }
-
 
         viewHolder.pubDate.setText(pubDateString);
 

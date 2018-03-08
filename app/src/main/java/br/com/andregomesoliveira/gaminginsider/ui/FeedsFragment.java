@@ -1,13 +1,16 @@
 package br.com.andregomesoliveira.gaminginsider.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
@@ -20,6 +23,7 @@ import br.com.andregomesoliveira.gaminginsider.adapter.ArticleAdapter;
 import br.com.andregomesoliveira.gaminginsider.model.Category;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class FeedsFragment extends Fragment {
 
@@ -34,8 +38,8 @@ public class FeedsFragment extends Fragment {
     RecyclerView mRecyclerView;
 
     //The swipe layout
-    @BindView(R.id.container)
-    SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     public FeedsFragment() {
     }
@@ -44,19 +48,6 @@ public class FeedsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-
-        mRefreshLayout.canChildScrollUp();
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
-            @Override
-            public void onRefresh() {
-
-                mAdapter.clearData();
-                mAdapter.notifyDataSetChanged();
-                mRefreshLayout.setRefreshing(true);
-                //loadFeed();
-            }
-        });
 
         if (savedInstanceState != null) {
             mCategory = savedInstanceState.getParcelable(getString(R.string.intent_category));
@@ -76,6 +67,26 @@ public class FeedsFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
+        loadFeed();
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+
+                mAdapter.clearData();
+                mAdapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(true);
+                loadFeed();
+            }
+        });
+
+        return rootView;
+    }
+
+    public void loadFeed() {
+    final Context context = getContext();
+
         if (mCategory != null) {
 
             for (Map.Entry<String, String> pair : mCategory.getSources().entrySet()) {
@@ -87,17 +98,21 @@ public class FeedsFragment extends Fragment {
                     @Override
                     public void onTaskCompleted(ArrayList<Article> articles) {
 
-                        String title = articles.get(0).getTitle();
-                        String description = articles.get(0).getDescription();
-                        String content = articles.get(0).getContent();
+                        mAdapter = new ArticleAdapter(articles, R.layout.feed_list_content, getContext());
+                        mRecyclerView.setAdapter(mAdapter);
+                        mSwipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onError() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        Toast.makeText(context, context.getString(R.string.error_loading_message),
+                                Toast.LENGTH_LONG).show();
+                        Timber.e(context.getString(R.string.log_feed_error));
                     }
                 });
             }
         }
-        return rootView;
     }
 }
+

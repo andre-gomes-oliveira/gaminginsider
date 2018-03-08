@@ -28,6 +28,7 @@
     <!-- General purpose strings, not shown to the user or not translatable-->
     <string name="app_name" translatable="false">Gaming Insider</string>
     <string name="facebook_application_id" translatable="false">417364918696108</string>
+    <string name="log_feed_error" translatable="false">Error loading feeds</string>
 
 
 </resources>

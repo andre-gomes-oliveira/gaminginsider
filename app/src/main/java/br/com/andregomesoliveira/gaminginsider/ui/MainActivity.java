@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FeedsFragment fragment = new FeedsFragment();
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_feeds, fragment)
+                .add(R.id.feeds_container, fragment)
                 .commit();
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
