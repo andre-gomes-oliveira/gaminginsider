@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FeedsFragment fragment = new FeedsFragment();
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.feeds_container, fragment)
+                .replace(R.id.feeds_container, fragment)
                 .commit();
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
@@ -192,19 +192,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void onSignedInInitialize() {
         attachDatabaseReadListener();
 
-        TextView userNameView = findViewById(R.id.tv_user_name);
-        TextView userEmailView = findViewById(R.id.tv_user_email);
-        ImageView avatarView = findViewById(R.id.iv_user_avatar);
+        if(mUser != null){
+            TextView userNameView = findViewById(R.id.tv_user_name);
+            TextView userEmailView = findViewById(R.id.tv_user_email);
+            ImageView avatarView = findViewById(R.id.iv_user_avatar);
 
-        userNameView.setText(mUser.getDisplayName());
-        userEmailView.setText(mUser.getEmail());
+            if (userNameView != null && (mUser.getDisplayName() != null)) {
+                userNameView.setText(mUser.getDisplayName());
+            } else {
+                Timber.e(getString(R.string.log_user_name_error));
+            }
+
+            if (userEmailView != null && (mUser.getEmail() != null)) {
+                userEmailView.setText(mUser.getEmail());
+            } else {
+                Timber.e(getString(R.string.log_user_email_error));
+
+            }
+
 
         /* No need for an error image or a placeholder
            If no image can be loaded, the default from the nav_header layout will be used
         */
-        Picasso.with(this)
-                .load(mUser.getPhotoUrl())
-                .into(avatarView);
+            if (avatarView != null && (mUser.getPhotoUrl() != null)) {
+                Picasso.with(this)
+                        .load(mUser.getPhotoUrl())
+                        .into(avatarView);
+            }else {
+                Timber.e(getString(R.string.log_user_avatar_error));
+
+            }
+        }
     }
 
     private void onSignedOutCleanup() {

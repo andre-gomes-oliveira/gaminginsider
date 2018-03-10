@@ -25,10 +25,14 @@
     <!-- Intents -->
     <string name="intent_category" translatable="false">category_intent</string>
 
+    <!-- Log messages -->
+    <string name="log_feed_error" translatable="false">Error loading feeds</string>
+    <string name="log_user_name_error" translatable="false">Could not load the user name.</string>
+    <string name="log_user_email_error" translatable="false">Could not load the user email.</string>
+    <string name="log_user_avatar_error" translatable="false">Could not load the user avatar.</string>
+
     <!-- General purpose strings, not shown to the user or not translatable-->
     <string name="app_name" translatable="false">Gaming Insider</string>
     <string name="facebook_application_id" translatable="false">417364918696108</string>
-    <string name="log_feed_error" translatable="false">Error loading feeds</string>
-
-
+    <string name="bundle_recycler_position" translatable="false">bundle_feeds_list_position</string>
 </resources>

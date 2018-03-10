@@ -50,47 +50,32 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         Article currentArticle = articles.get(position);
 
-        Locale.setDefault(Locale.getDefault());
-        Date date = currentArticle.getPubDate();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
-        final String pubDateString = dateFormat.format(date);
+        if (currentArticle != null) {
+            Locale.setDefault(Locale.getDefault());
+            Date date = currentArticle.getPubDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
+            final String pubDateString = dateFormat.format(date);
 
-        viewHolder.title.setText(currentArticle.getTitle());
-        if(currentArticle.getImage() != null &&
-                !currentArticle.getImage().isEmpty()){
-            Picasso.with(mContext)
-                    .load(currentArticle.getImage())
-                    .placeholder(R.drawable.placeholder)
-                    .fit()
-                    .centerCrop()
-                    .into(viewHolder.image);
-        }
-        else{
-            viewHolder.image.setVisibility(View.INVISIBLE);
-        }
+            viewHolder.title.setText(currentArticle.getTitle());
+            if (currentArticle.getImage() != null &&
+                    !currentArticle.getImage().isEmpty()) {
+                Picasso.with(mContext)
+                        .load(currentArticle.getImage())
+                        .placeholder(R.drawable.placeholder)
+                        .fit()
+                        .centerCrop()
+                        .into(viewHolder.image);
+            }
 
-        viewHolder.pubDate.setText(pubDateString);
+            viewHolder.pubDate.setText(pubDateString);
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
-        String categories = "";
-        if (currentArticle.getCategories() != null) {
-            for (int i = 0; i < currentArticle.getCategories().size(); i++) {
-                if (i == currentArticle.getCategories().size() - 1) {
-                    categories = categories + currentArticle.getCategories().get(i);
-                } else {
-                    categories = categories + currentArticle.getCategories().get(i) + ", ";
+                @Override
+                public void onClick(View view) {
+                    //TODO: implement the click listener
                 }
-            }
+            });
         }
-
-        viewHolder.category.setText(categories);
-
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                //TODO: implement the click listener
-            }
-        });
     }
 
     @Override
@@ -109,7 +94,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         TextView title;
         TextView pubDate;
         ImageView image;
-        TextView category;
 
         ViewHolder(View itemView) {
 
@@ -118,7 +102,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             title = itemView.findViewById(R.id.title);
             pubDate = itemView.findViewById(R.id.pubDate);
             image = itemView.findViewById(R.id.image);
-            category = itemView.findViewById(R.id.categories);
         }
     }
 }

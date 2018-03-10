@@ -1,12 +1,15 @@
 package br.com.andregomesoliveira.gaminginsider.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +70,24 @@ public class FeedsFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
+        Context context = getContext();
+
+        if (savedInstanceState != null) {
+
+            Parcelable recyclerLayoutState = savedInstanceState.getParcelable
+                    (getString(R.string.bundle_recycler_position));
+
+            if (recyclerLayoutState != null) {
+                if (context != null) {
+                    Resources resources = context.getResources();
+                    GridLayoutManager layoutManager = new GridLayoutManager(context,
+                            resources.getInteger(R.integer.list_column_count));
+                    layoutManager.onRestoreInstanceState(recyclerLayoutState);
+                    mRecyclerView.setLayoutManager(layoutManager);
+                }
+            }
+        }
+
         loadFeed();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -84,8 +105,19 @@ public class FeedsFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(getString(R.string.intent_category), mCategory);
+
+        GridLayoutManager layoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
+        outState.putParcelable(getString(R.string.bundle_recycler_position),
+                layoutManager.onSaveInstanceState());
+
+    }
+
     public void loadFeed() {
-    final Context context = getContext();
+        final Context context = getContext();
 
         if (mCategory != null) {
 
@@ -98,7 +130,7 @@ public class FeedsFragment extends Fragment {
                     @Override
                     public void onTaskCompleted(ArrayList<Article> articles) {
 
-                        mAdapter = new ArticleAdapter(articles, R.layout.feed_list_content, getContext());
+                        mAdapter = new ArticleAdapter(articles, R.layout.feed_list_content, context);
                         mRecyclerView.setAdapter(mAdapter);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
@@ -106,8 +138,6 @@ public class FeedsFragment extends Fragment {
                     @Override
                     public void onError() {
                         mSwipeRefreshLayout.setRefreshing(false);
-                        Toast.makeText(context, context.getString(R.string.error_loading_message),
-                                Toast.LENGTH_LONG).show();
                         Timber.e(context.getString(R.string.log_feed_error));
                     }
                 });
