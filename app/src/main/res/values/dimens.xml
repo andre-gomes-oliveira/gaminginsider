@@ -34,7 +34,7 @@
     <dimen name="article_padding_left">4dp</dimen>
     <dimen name="article_padding_right">4dp</dimen>
     <dimen name="article_padding_bottom">8dp</dimen>
-    <dimen name="article_horizontal_margin">16dp</dimen>
+    <dimen name="article_horizontal_margin">4dp</dimen>
     <dimen name="article_vertical_margin">8dp</dimen>
 
     <!-- Others -->

@@ -1,11 +1,11 @@
 package br.com.andregomesoliveira.gaminginsider.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,18 +18,19 @@ import java.util.Date;
 import java.util.Locale;
 
 import br.com.andregomesoliveira.gaminginsider.R;
+import br.com.andregomesoliveira.gaminginsider.ui.ArticleActivity;
+import timber.log.Timber;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
-    private ArrayList<Article> articles;
+    private ArrayList<Article> mArticles;
 
     private int cardLayout;
     private Context mContext;
-    WebView articleView;
 
     public ArticleAdapter(ArrayList<Article> list, int cardLayout, Context context) {
 
-        this.articles = list;
+        this.mArticles = list;
         this.cardLayout = cardLayout;
         this.mContext = context;
     }
@@ -47,14 +48,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-
-        Article currentArticle = articles.get(position);
+        Article currentArticle = mArticles.get(position);
 
         if (currentArticle != null) {
             Locale.setDefault(Locale.getDefault());
             Date date = currentArticle.getPubDate();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
-            final String pubDateString = dateFormat.format(date);
+            if(date != null){
+                final String pubDateString = dateFormat.format(date);
+                viewHolder.pubDate.setText(pubDateString);
+            }
 
             viewHolder.title.setText(currentArticle.getTitle());
             if (currentArticle.getImage() != null &&
@@ -67,28 +70,40 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                         .into(viewHolder.image);
             }
 
-            viewHolder.pubDate.setText(pubDateString);
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-                    //TODO: implement the click listener
-                }
-            });
+            viewHolder.itemView.setTag(currentArticle);
+            viewHolder.itemView.setOnClickListener(mOnClickListener);
         }
     }
 
     @Override
     public int getItemCount() {
 
-        return articles == null ? 0 : articles.size();
+        return mArticles == null ? 0 : mArticles.size();
 
     }
 
     public void clearData() {
-        if (articles != null)
-            articles.clear();
+        if (mArticles != null)
+            mArticles.clear();
     }
+
+    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Article article = (Article) view.getTag();
+            Context context = view.getContext();
+
+            Class destinationClass = ArticleActivity.class;
+            Intent intent = new Intent(context, destinationClass);
+
+            intent.putExtra(context.getString(R.string.intent_article_author), article.getAuthor());
+            intent.putExtra(context.getString(R.string.intent_article_content), article.getContent());
+            intent.putExtra(context.getString(R.string.intent_article_description), article.getDescription());
+            intent.putExtra(context.getString(R.string.intent_article_image), article.getImage());
+            intent.putExtra(context.getString(R.string.intent_article_link), article.getLink());
+            context.startActivity(intent);
+        }
+    };
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;

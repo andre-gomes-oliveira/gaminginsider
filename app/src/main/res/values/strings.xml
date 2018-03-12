@@ -24,6 +24,14 @@
 
     <!-- Intents -->
     <string name="intent_category" translatable="false">category_intent</string>
+    <string name="intent_article_author" translatable="false">article_author_intent</string>
+    <string name="intent_article_content" translatable="false">article_content_intent</string>
+    <string name="intent_article_description" translatable="false">article_description_intent</string>
+    <string name="intent_article_image" translatable="false">article_image_intent</string>
+    <string name="intent_article_link" translatable="false">article_link_intent</string>
+
+    <!-- Bundle -->
+    <string name="bundle_recycler_position" translatable="false">bundle_feeds_list_position</string>
 
     <!-- Log messages -->
     <string name="log_feed_error" translatable="false">Error loading feeds</string>
@@ -34,5 +42,10 @@
     <!-- General purpose strings, not shown to the user or not translatable-->
     <string name="app_name" translatable="false">Gaming Insider</string>
     <string name="facebook_application_id" translatable="false">417364918696108</string>
-    <string name="bundle_recycler_position" translatable="false">bundle_feeds_list_position</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!-- Testing -->
+    <string name="action_settings">Settings</string>
+    <string name="article_mime_type">text/html</string>
+    <string name="article_encoding">UTF-8</string>
 </resources>
