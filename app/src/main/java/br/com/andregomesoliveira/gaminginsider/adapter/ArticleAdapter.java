@@ -101,6 +101,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             intent.putExtra(context.getString(R.string.intent_article_description), article.getDescription());
             intent.putExtra(context.getString(R.string.intent_article_image), article.getImage());
             intent.putExtra(context.getString(R.string.intent_article_link), article.getLink());
+            intent.putExtra(context.getString(R.string.intent_article_title), article.getTitle());
             context.startActivity(intent);
         }
     };

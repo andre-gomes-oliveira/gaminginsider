@@ -5,8 +5,13 @@ import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ShareCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -18,16 +23,22 @@ import butterknife.ButterKnife;
 
 public class ArticleActivity extends AppCompatActivity {
 
-    //The navigation view
-    @BindView(R.id.adView)
-    AdView mAdView;
+    @BindView(R.id.article_toolbar)
+    Toolbar mToolbar;
 
-    //The article details that will be displayed in this activity
+    @BindView(R.id.article_toolbar_layout)
+    CollapsingToolbarLayout mAppBarLayout;
+
     @BindView(R.id.tv_article_author)
     TextView mAuthorView;
 
     @BindView(R.id.iv_article_image)
     ImageView mImageView;
+
+    @BindView(R.id.adView)
+    AdView mAdView;
+
+    private String mArticleLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +46,20 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article);
         ButterKnife.bind(this);
 
+        setSupportActionBar(mToolbar);
+
+        // Show the Up button in the action bar.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         if (savedInstanceState == null) {
             Intent starterIntent = getIntent();
 
             mAuthorView.setText(starterIntent.getStringExtra(getString(R.string.intent_article_author)));
-            //mLinkView.setText(starterIntent.getStringExtra(getString(R.string.intent_article_link)));
+            mAppBarLayout.setTitle(starterIntent.getStringExtra(getString(R.string.intent_article_title)));
+            mArticleLink = starterIntent.getStringExtra(getString(R.string.intent_article_link));
 
             String imageUrl = starterIntent.getStringExtra(getString(R.string.intent_article_image));
             if (imageUrl != null &&
@@ -80,16 +100,20 @@ public class ArticleActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(this)
+                        .setType(getString(R.string.share_mime_type))
+                        .setText(mAppBarLayout.getTitle() + "\n" + mArticleLink)
+                        .getIntent(), getString(R.string.action_share)));
+                break;
+            case R.id.action_link:
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mArticleLink));
 
-        if (id == R.id.action_settings) {
-            return true;
+                startActivity(webIntent);
+                break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
-
 }

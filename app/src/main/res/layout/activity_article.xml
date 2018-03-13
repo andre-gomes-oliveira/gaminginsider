@@ -8,20 +8,20 @@
     tools:context="br.com.andregomesoliveira.gaminginsider.ui.ArticleActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/detail_app_bar"
+        android:id="@+id/article_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/detail_toolbar_layout"
+            android:id="@+id/article_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            app:toolbarId="@+id/article_toolbar">
 
             <ImageView
                 android:id="@+id/iv_article_image"
@@ -38,7 +38,7 @@
                 app:layout_anchorGravity="bottom|end" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/detail_toolbar"
+                android:id="@+id/article_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
@@ -53,14 +53,18 @@
         android:id="@+id/article_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_anchor="@id/article_app_bar"
+        app:layout_anchorGravity="bottom|center_horizontal|end"
         tools:layout="@layout/fragment_main" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
+        android:layout_height="match_parent"
         ads:layout_anchor="@id/article_container"
-        app:layout_anchorGravity="bottom|center_horizontal|end" />
+        ads:layout_anchorGravity="bottom|center_horizontal|end"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
+
 </android.support.design.widget.CoordinatorLayout>

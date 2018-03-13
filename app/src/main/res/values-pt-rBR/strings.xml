@@ -4,7 +4,7 @@
     <string name="action_logout">Configurações</string>
     <string name="firebase_categories">Categorias</string>
 
-    <!-- Gaveta de navegaçãor -->
+    <!-- Menus -->
     <string name="menu_add">Adicionar uma novo feed RSS</string>
     <string name="menu_settings">Configurações</string>
     <string name="menu_options">Opções</string>
@@ -12,7 +12,9 @@
     <string name="menu_category_articles">Artigos</string>
     <string name="menu_category_News">Notícias</string>
     <string name="menu_category_reviews">Resenhas</string>
-    <string name="menu_category_generated">Seus feeds</string>
+    <string name="menu_category_generated">Criados pelos usuários</string>
+    <string name="action_share">Compartilhar</string>
+    <string name="action_link">Abrir no navegador</string>
 
     <!-- Acessibilidade -->
     <string name="content_description_avatar">Avatar do usuário</string>
@@ -22,4 +24,6 @@
     <string name="navigation_drawer_close">Fechar a gaveta de navegação</string>
     <string name="navigation_drawer_open">Abrir a gaveta de navegação</string>
     <string name="error_loading_message">Erro ao carregar os feeds, verifique sua conexão com a internet</string>
+    <string name="menu_share_tooltip">Compartilhe este artigo</string>
+    <string name="menu_link_tooltip">Abra em um navegador</string>
 </resources>
