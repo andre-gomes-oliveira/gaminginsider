@@ -24,6 +24,10 @@
     <string name="navigation_drawer_close">Fechar a gaveta de navegação</string>
     <string name="navigation_drawer_open">Abrir a gaveta de navegação</string>
     <string name="error_loading_message">Erro ao carregar os feeds, verifique sua conexão com a internet</string>
+    <string name="error_opening_article">Ocorreu um erro ao tentar abrir o artigo, tente novamente mais tarde.</string>
     <string name="menu_share_tooltip">Compartilhe este artigo</string>
     <string name="menu_link_tooltip">Abra em um navegador</string>
+    <string name="alert_title">Atenção!</string>
+    <string name="alert_message">A conexão com a internet falhou. \nVerifica sua conexão!</string>
+    <string name="alert_positive">Fechar</string>
 </resources>

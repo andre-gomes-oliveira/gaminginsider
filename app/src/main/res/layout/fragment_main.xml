@@ -36,4 +36,15 @@
         android:text="@string/error_loading_message"
         android:visibility="invisible" />
 
+    <ProgressBar
+        android:id="@+id/pb_feeds_loading_indicator"
+        style="@android:style/Widget.Holo.Light.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorAccent"
+        android:layout_centerInParent="true"
+        />
+
 </android.support.design.widget.CoordinatorLayout>

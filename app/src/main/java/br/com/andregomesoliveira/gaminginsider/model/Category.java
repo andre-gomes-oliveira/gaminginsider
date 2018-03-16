@@ -46,10 +46,6 @@ public class Category implements Parcelable {
         return sources;
     }
 
-    public void setSources(HashMap<String, String> sources) {
-        this.sources = sources;
-    }
-
     public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
 
         @Override

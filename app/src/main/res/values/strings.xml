@@ -23,8 +23,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="error_loading_message">Error loading the feeds, check your internet connection</string>
+    <string name="error_opening_article">An error occurred when trying to open the article, try again later.</string>
     <string name="menu_share_tooltip">Share this article</string>
     <string name="menu_link_tooltip">Open in a browser</string>
+    <string name="alert_title">Attention!</string>
+    <string name="alert_message">Unable to load data. \nCheck your connection!</string>
+    <string name="alert_positive">Close</string>
 
     <!-- Intents -->
     <string name="intent_category" translatable="false">category_intent</string>
@@ -37,6 +41,7 @@
 
     <!-- Bundle -->
     <string name="bundle_recycler_position" translatable="false">bundle_feeds_list_position</string>
+    <string name="bundle_categories" translatable="false">bundle_categories</string>
 
     <!-- Log messages -->
     <string name="log_feed_error" translatable="false">Error loading feeds</string>
@@ -48,9 +53,8 @@
     <string name="app_name" translatable="false">Gaming Insider</string>
     <string name="facebook_application_id" translatable="false">417364918696108</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="article_mime_type" translatable="false">text/html</string>
+    <string name="share_mime_type" translatable="false">text/plain</string>
+    <string name="article_encoding" translatable="false">UTF-8</string>
 
-    <!-- Testing -->
-    <string name="article_mime_type">text/html</string>
-    <string name="share_mime_type">text/plain</string>
-    <string name="article_encoding">UTF-8</string>
 </resources>

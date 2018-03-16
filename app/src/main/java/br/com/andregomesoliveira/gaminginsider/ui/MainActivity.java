@@ -1,6 +1,11 @@
 package br.com.andregomesoliveira.gaminginsider.ui;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -26,7 +31,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import br.com.andregomesoliveira.gaminginsider.R;
 import br.com.andregomesoliveira.gaminginsider.model.Category;
@@ -37,7 +41,7 @@ import timber.log.Timber;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Constants
-    public static final int RC_SIGN_IN = 1;
+    private static final int RC_SIGN_IN = 1;
 
     //The activity's Toolbar
     @BindView(R.id.toolbar)
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ChildEventListener mChildEventListener;
 
     //The map of news categories
-    private List<Category> mCategories;
+    private ArrayList<Category> mCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        if (!isNetworkAvailable()) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.alert_message)
+                    .setTitle(R.string.alert_title)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.alert_positive,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    finish();
+                                }
+                            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
 
         //Setting up Firebase
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -109,8 +132,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         };
-
-        mCategories = new ArrayList<>();
+        if (savedInstanceState != null) {
+            mCategories = savedInstanceState.getParcelableArrayList(getString(R.string.bundle_categories));
+        } else {
+            mCategories = new ArrayList<>();
+        }
     }
 
     @Override
@@ -121,8 +147,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onPause() {
+        if (mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
+
+        detachDatabaseReadListener();
         super.onPause();
-        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(getString(R.string.bundle_categories), mCategories);
     }
 
     @Override
@@ -192,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void onSignedInInitialize() {
         attachDatabaseReadListener();
 
-        if(mUser != null){
+        if (mUser != null) {
             TextView userNameView = findViewById(R.id.tv_user_name);
             TextView userEmailView = findViewById(R.id.tv_user_email);
             ImageView avatarView = findViewById(R.id.iv_user_avatar);
@@ -207,9 +243,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 userEmailView.setText(mUser.getEmail());
             } else {
                 Timber.e(getString(R.string.log_user_email_error));
-
             }
-
 
         /* No need for an error image or a placeholder
            If no image can be loaded, the default from the nav_header layout will be used
@@ -218,9 +252,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Picasso.with(this)
                         .load(mUser.getPhotoUrl())
                         .into(avatarView);
-            }else {
+            } else {
                 Timber.e(getString(R.string.log_user_avatar_error));
-
             }
         }
     }
@@ -263,5 +296,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mCategoriesDatabaseReference.removeEventListener(mChildEventListener);
             mChildEventListener = null;
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return false;
+        }
+
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

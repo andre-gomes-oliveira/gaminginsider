@@ -30,14 +30,13 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="br.com.andregomesoliveira.gaminginsider.ui.ArticleActivity"
+            android:name=".ui.ArticleActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ui.MainActivity" />
+        </activity>
     </application>
-
 </manifest>

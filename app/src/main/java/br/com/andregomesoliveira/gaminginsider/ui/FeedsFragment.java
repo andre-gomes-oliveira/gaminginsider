@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
@@ -35,6 +38,9 @@ public class FeedsFragment extends Fragment {
     //The adapter used by the recycler view
     private ArticleAdapter mAdapter;
 
+    // Layout manager used by the RecyclerView
+    private GridLayoutManager mLayoutManager;
+
     //The recycler view used to display the feeds
     @BindView(R.id.feeds_list)
     RecyclerView mRecyclerView;
@@ -42,6 +48,10 @@ public class FeedsFragment extends Fragment {
     //The swipe layout
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    //The progress bar used to signal that the feeds are being loaded
+    @BindView(R.id.pb_feeds_loading_indicator)
+    ProgressBar mProgressBar;
 
     public FeedsFragment() {
     }
@@ -71,24 +81,24 @@ public class FeedsFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         Context context = getContext();
+        if (context != null) {
+            Resources resources = context.getResources();
+            if (resources != null) {
+                mLayoutManager = new GridLayoutManager(context,
+                        resources.getInteger(R.integer.list_column_count),
+                        LinearLayoutManager.VERTICAL, false);
+            }
+        }
 
         if (savedInstanceState != null) {
 
             Parcelable recyclerLayoutState = savedInstanceState.getParcelable
                     (getString(R.string.bundle_recycler_position));
 
-            if (recyclerLayoutState != null) {
-                if (context != null) {
-                    Resources resources = context.getResources();
-                    GridLayoutManager layoutManager = new GridLayoutManager(context,
-                            resources.getInteger(R.integer.list_column_count));
-                    layoutManager.onRestoreInstanceState(recyclerLayoutState);
-                    mRecyclerView.setLayoutManager(layoutManager);
-                }
+            if (recyclerLayoutState != null && mLayoutManager != null) {
+                mLayoutManager.onRestoreInstanceState(recyclerLayoutState);
             }
         }
-
-        loadFeed();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
@@ -102,7 +112,24 @@ public class FeedsFragment extends Fragment {
             }
         });
 
+        loadFeed();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        if (mAdapter != null)
+            mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+        if (mAdapter != null)
+            mAdapter.clearData();
     }
 
     @Override
@@ -110,18 +137,18 @@ public class FeedsFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putParcelable(getString(R.string.intent_category), mCategory);
 
-        GridLayoutManager layoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
         outState.putParcelable(getString(R.string.bundle_recycler_position),
-                layoutManager.onSaveInstanceState());
-
+                mLayoutManager.onSaveInstanceState());
     }
 
-    public void loadFeed() {
-        final Context context = getContext();
+    private void loadFeed() {
+        if (!mSwipeRefreshLayout.isRefreshing())
+            mProgressBar.setVisibility(View.VISIBLE);
 
         if (mCategory != null) {
-
+            final Context context = getContext();
             for (Map.Entry<String, String> pair : mCategory.getSources().entrySet()) {
+
                 String url = pair.getValue();
                 Parser parser = new Parser();
                 parser.execute(url);
@@ -129,16 +156,33 @@ public class FeedsFragment extends Fragment {
 
                     @Override
                     public void onTaskCompleted(ArrayList<Article> articles) {
+                        if(mAdapter == null){
+                            mAdapter = new ArticleAdapter(articles, context);
+                            mRecyclerView.setAdapter(mAdapter);
+                        }
+                        else{
+                            mAdapter.getArticles().addAll(articles);
+                            mAdapter.notifyDataSetChanged();
+                        }
 
-                        mAdapter = new ArticleAdapter(articles, R.layout.feed_list_content, context);
-                        mRecyclerView.setAdapter(mAdapter);
+                        mProgressBar.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onError() {
+                        mProgressBar.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
-                        Timber.e(context.getString(R.string.log_feed_error));
+
+                        if(context != null){
+                            Snackbar snackbar = Snackbar
+                                    .make(mSwipeRefreshLayout,
+                                            context.getString(R.string.log_feed_error),
+                                            Snackbar.LENGTH_LONG);
+
+                            snackbar.show();
+                            Timber.e(context.getString(R.string.log_feed_error));
+                        }
                     }
                 });
             }

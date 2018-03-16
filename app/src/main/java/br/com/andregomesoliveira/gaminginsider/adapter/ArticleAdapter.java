@@ -19,19 +19,18 @@ import java.util.Locale;
 
 import br.com.andregomesoliveira.gaminginsider.R;
 import br.com.andregomesoliveira.gaminginsider.ui.ArticleActivity;
-import timber.log.Timber;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
     private ArrayList<Article> mArticles;
 
-    private int cardLayout;
-    private Context mContext;
+    private final int cardLayout;
+    private final Context mContext;
 
-    public ArticleAdapter(ArrayList<Article> list, int cardLayout, Context context) {
+    public ArticleAdapter(ArrayList<Article> list, Context context) {
 
         this.mArticles = list;
-        this.cardLayout = cardLayout;
+        this.cardLayout = R.layout.feed_list_content;
         this.mContext = context;
     }
 
@@ -77,14 +76,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-
         return mArticles == null ? 0 : mArticles.size();
-
     }
 
     public void clearData() {
         if (mArticles != null)
             mArticles.clear();
+    }
+
+    public ArrayList<Article> getArticles(){
+        return mArticles;
     }
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -107,9 +108,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     };
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView pubDate;
-        ImageView image;
+        final TextView title;
+        final TextView pubDate;
+        final ImageView image;
 
         ViewHolder(View itemView) {
 
