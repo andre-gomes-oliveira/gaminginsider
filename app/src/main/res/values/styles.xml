@@ -6,7 +6,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorBackground</item>
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
-        <item name="android:textColorSecondary">@color/colorAccentText</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryText</item>
+        <item name="android:alertDialogStyle">@style/CustomDialogTheme</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -73,15 +74,17 @@
         <item name="android:paddingBottom">@dimen/card_padding_bottom</item>
     </style>
 
-    <!-- Floating Action Button theme -->
-    <style name="floatingButtonTheme">
-        <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:layout_marginBottom">@dimen/fab_margin</item>
-        <item name="android:layout_marginEnd">@dimen/fab_margin</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-        <item name="android:background">@color/colorAccent</item>
-        <item name="android:elevation">@dimen/fab_elevation</item>
+    <!-- Dialog theme -->
+    <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:bottomBright">@color/colorPrimaryLight</item>
+        <item name="android:bottomDark">@color/colorPrimaryDark</item>
+        <item name="android:bottomMedium">@color/colorPrimary</item>
+        <item name="android:centerBright">@color/colorPrimaryLight</item>
+        <item name="android:centerDark">@color/colorPrimaryDark</item>
+        <item name="android:centerMedium">@color/colorPrimary</item>
+        <item name="android:fullBright">@color/colorPrimaryLight</item>
+        <item name="android:fullDark">@color/colorPrimaryDark</item>
+        <item name="android:topBright">@color/colorPrimaryLight</item>
+        <item name="android:topDark">@color/colorPrimaryDark</item>
     </style>
-
 </resources>

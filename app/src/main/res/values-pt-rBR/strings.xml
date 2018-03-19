@@ -3,10 +3,15 @@
     <!-- Itens de interface -->
     <string name="action_logout">Configurações</string>
     <string name="firebase_categories">Categorias</string>
+    <string name="appwidget_text">Clique aqui para abrir o app e começar a carregar as notícias</string>
+    <string name="dialog_message">Adicionar nova fonte de notícias</string>
+    <string name="dialog_confirm">Adicionar</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="welcome_message">Bem-vindo(a) ao Gaming Insider!
+        \nSelecione uma categoria na gaveta de naveção para começar a ler suas notícias.</string>
 
     <!-- Menus -->
     <string name="menu_add">Adicionar uma novo feed RSS</string>
-    <string name="menu_settings">Configurações</string>
     <string name="menu_options">Opções</string>
     <string name="menu_category_all">Todos</string>
     <string name="menu_category_articles">Artigos</string>
@@ -30,4 +35,9 @@
     <string name="alert_title">Atenção!</string>
     <string name="alert_message">A conexão com a internet falhou. \nVerifica sua conexão!</string>
     <string name="alert_positive">Fechar</string>
+    <string name="add_feed_error">Não foi possível obter dados dessa url.
+        \nTem certeza de que é uma fonte válida?</string>
+    <string name="add_feed_url_error">A URL providenciada é inválida.</string>
+    <string name="add_feed_success">Uma nova fonte de notíciais foi adicionada.</string>
+    <string name="dialog_cancel_message">Nenhuma fonte adicionada</string>
 </resources>

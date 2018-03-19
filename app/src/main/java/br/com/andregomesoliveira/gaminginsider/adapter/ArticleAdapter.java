@@ -63,7 +63,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                     !currentArticle.getImage().isEmpty()) {
                 Picasso.with(mContext)
                         .load(currentArticle.getImage())
-                        .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.ic_sync)
                         .fit()
                         .centerCrop()
                         .into(viewHolder.image);

@@ -5,4 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:layout="@layout/fragment_main" />
+    tools:layout="@layout/fragment_main">
+    <TextView
+        android:id="@+id/tv_welcome_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/welcome_message"
+        style="@style/TitleTheme"/>
+</android.support.design.widget.CoordinatorLayout>

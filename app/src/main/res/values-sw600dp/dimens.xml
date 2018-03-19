@@ -2,7 +2,6 @@
 <resources>
 
     <!-- Article highlights -->
-    <dimen name="article_photo_height">304dp</dimen>
     <dimen name="article_title_text_size">24sp</dimen>
     <dimen name="article_subtitle_text_size">16sp</dimen>
     <dimen name="article_body_text_size">20sp</dimen>

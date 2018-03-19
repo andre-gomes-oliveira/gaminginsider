@@ -16,7 +16,6 @@
     <dimen name="card_image_width">150dp</dimen>
 
     <!-- Article highlights -->
-    <dimen name="article_photo_height">304dp</dimen>
     <dimen name="article_title_text_size">16sp</dimen>
     <dimen name="article_subtitle_text_size">12sp</dimen>
     <dimen name="article_body_text_size">20sp</dimen>
@@ -37,8 +36,12 @@
     <dimen name="article_horizontal_margin">4dp</dimen>
     <dimen name="article_vertical_margin">8dp</dimen>
 
+    <!-- Widget -->
+    <dimen name="widget_margin">0dp</dimen>
+    <dimen name="widget_min_height">110dp</dimen>
+    <dimen name="widget_min_width">180dp</dimen>
+
     <!-- Others -->
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="fab_elevation">6dp</dimen>
     <dimen name="bar_elevation">6dp</dimen>
+
 </resources>

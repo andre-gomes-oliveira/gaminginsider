@@ -30,6 +30,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
+import static com.google.android.gms.internal.zzahn.runOnUiThread;
+
 public class FeedsFragment extends Fragment {
 
     //The Category of feeds this fragment is presenting.
@@ -156,11 +158,10 @@ public class FeedsFragment extends Fragment {
 
                     @Override
                     public void onTaskCompleted(ArrayList<Article> articles) {
-                        if(mAdapter == null){
+                        if (mAdapter == null) {
                             mAdapter = new ArticleAdapter(articles, context);
                             mRecyclerView.setAdapter(mAdapter);
-                        }
-                        else{
+                        } else {
                             mAdapter.getArticles().addAll(articles);
                             mAdapter.notifyDataSetChanged();
                         }
@@ -171,18 +172,20 @@ public class FeedsFragment extends Fragment {
 
                     @Override
                     public void onError() {
-                        mProgressBar.setVisibility(View.GONE);
-                        mSwipeRefreshLayout.setRefreshing(false);
 
-                        if(context != null){
-                            Snackbar snackbar = Snackbar
-                                    .make(mSwipeRefreshLayout,
-                                            context.getString(R.string.log_feed_error),
-                                            Snackbar.LENGTH_LONG);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mProgressBar.setVisibility(View.GONE);
+                                mSwipeRefreshLayout.setRefreshing(false);
 
-                            snackbar.show();
-                            Timber.e(context.getString(R.string.log_feed_error));
-                        }
+                                if (context != null) {
+                                    Snackbar.make(mSwipeRefreshLayout, context.getString(R.string.log_feed_error),
+                                                    Snackbar.LENGTH_LONG).show();
+                                    Timber.e(context.getString(R.string.log_feed_error));
+                                }
+                            }
+                        });
                     }
                 });
             }

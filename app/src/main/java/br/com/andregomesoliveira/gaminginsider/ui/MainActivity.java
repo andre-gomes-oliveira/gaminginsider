@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +41,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
+import static br.com.andregomesoliveira.gaminginsider.utils.ParserUtilities.addFeed;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Constants
@@ -54,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //The navigation view
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+
+    //The welcome message TextView
+    @BindView(R.id.tv_welcome_message)
+    TextView mWelcomeTextView;
 
     //Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
@@ -209,11 +218,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 arguments.putParcelable(getString(R.string.intent_category), mCategories.get(4));
                 break;
             case R.id.nav_add:
+                showFeedsSourceDialog();
                 mDrawer.closeDrawer(GravityCompat.START);
                 return true;
-            case R.id.nav_settings:
-                mDrawer.closeDrawer(GravityCompat.START);
-                return true;
+        }
+
+        if(mWelcomeTextView.getVisibility() == View.VISIBLE){
+            mWelcomeTextView.setVisibility(View.GONE);
         }
 
         FeedsFragment fragment = new FeedsFragment();
@@ -307,5 +318,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void showFeedsSourceDialog(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        //AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext(), R.style.CustomDialogTheme);
+
+        final EditText edittext = new EditText(getApplicationContext());
+        alert.setTitle(getString(R.string.app_name));
+        alert.setMessage(getString(R.string.dialog_message));
+
+        alert.setView(edittext);
+
+        alert.setPositiveButton(getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String newSource = edittext.getText().toString();
+
+                addFeed(findViewById(R.id.drawer_layout), getApplicationContext(),
+                        newSource, mCategoriesDatabaseReference);
+            }
+        });
+
+        alert.setNegativeButton(getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Snackbar.make(findViewById(R.id.drawer_layout), getString(R.string.dialog_cancel_message),
+                        Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        alert.show();
     }
 }

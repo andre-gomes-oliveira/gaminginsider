@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 
 public class ArticleFragment extends Fragment {
 
-    @BindView(R.id.tv_article_content)
+    @BindView(R.id.wv_article_content)
     WebView mContentView;
 
     private String mContent;
@@ -64,6 +64,10 @@ public class ArticleFragment extends Fragment {
             }
         }
 
+        if(savedInstanceState != null){
+            mContentView.saveState(savedInstanceState);
+        }
+
         return rootView;
     }
 
@@ -72,5 +76,6 @@ public class ArticleFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putString(getString(R.string.intent_article_content), mContent);
         outState.putString(getString(R.string.intent_article_description), mDescription);
+        mContentView.saveState(outState);
     }
 }

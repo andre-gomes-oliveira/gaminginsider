@@ -9,11 +9,8 @@
 
     <!-- Accent colors -->
     <color name="colorAccent">#ff6e40</color>
-    <color name="colorAccentDark">#c53d13</color>
-    <color name="colorAccentLight">#ffa06d</color>
 
     <!-- Text colors -->
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorAccentText">#000000</color>
-
 </resources>

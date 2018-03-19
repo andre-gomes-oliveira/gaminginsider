@@ -2,10 +2,15 @@
     <!-- ui items -->
     <string name="action_logout">Sign out</string>
     <string name="firebase_categories">Categories</string>
+    <string name="appwidget_text">Click here to open the app to begin fetching news!</string>
+    <string name="dialog_message">Add new feeds source</string>
+    <string name="dialog_confirm">Add</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="welcome_message">Welcome to Gaming Insider!
+        \nSelect a category from the navigation header to start reading news.</string>
 
     <!-- Menus -->
     <string name="menu_add">Add new RSS feed</string>
-    <string name="menu_settings">Settings</string>
     <string name="menu_options">Options</string>
     <string name="menu_category_all">All</string>
     <string name="menu_category_articles">Articles</string>
@@ -29,6 +34,11 @@
     <string name="alert_title">Attention!</string>
     <string name="alert_message">Unable to load data. \nCheck your connection!</string>
     <string name="alert_positive">Close</string>
+    <string name="add_feed_error">No data could be retrieved from this url.
+        \nAre you sure it is a valid source?</string>
+    <string name="add_feed_url_error">The URL provided is not a valid url.</string>
+    <string name="add_feed_success">A new source was added.</string>
+    <string name="dialog_cancel_message">No source added</string>
 
     <!-- Intents -->
     <string name="intent_category" translatable="false">category_intent</string>
@@ -38,10 +48,15 @@
     <string name="intent_article_image" translatable="false">article_image_intent</string>
     <string name="intent_article_link" translatable="false">article_link_intent</string>
     <string name="intent_article_title" translatable="false">article_title_intent</string>
+    <string name="intent_widget_feeds" translatable="false">intent_widget_feeds</string>
+    <string name="intent_widget_links" translatable="false">intent_widget_links</string>
 
     <!-- Bundle -->
     <string name="bundle_recycler_position" translatable="false">bundle_feeds_list_position</string>
     <string name="bundle_categories" translatable="false">bundle_categories</string>
+    <string name="bundle_article_link" translatable="false">bundle_article_link</string>
+    <string name="bundle_article_title" translatable="false">bundle_article_title</string>
+    <string name="bundle_article_image" translatable="false">bundle_article_image</string>
 
     <!-- Log messages -->
     <string name="log_feed_error" translatable="false">Error loading feeds</string>
@@ -52,9 +67,10 @@
     <!-- General purpose strings, not shown to the user or not translatable-->
     <string name="app_name" translatable="false">Gaming Insider</string>
     <string name="facebook_application_id" translatable="false">417364918696108</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="article_mime_type" translatable="false">text/html</string>
     <string name="share_mime_type" translatable="false">text/plain</string>
     <string name="article_encoding" translatable="false">UTF-8</string>
-
+    <string name="user_generated_category" translatable="false">eO9wlY78kvVz</string>
+    <string name="user_generated_category_child" translatable="false">sources</string>
 </resources>
