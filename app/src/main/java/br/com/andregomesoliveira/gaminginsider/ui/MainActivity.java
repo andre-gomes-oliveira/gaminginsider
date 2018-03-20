@@ -37,6 +37,7 @@ import java.util.Arrays;
 
 import br.com.andregomesoliveira.gaminginsider.R;
 import br.com.andregomesoliveira.gaminginsider.model.Category;
+import br.com.andregomesoliveira.gaminginsider.utils.FeedsFetchingUtilities;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
         if (savedInstanceState != null) {
             mCategories = savedInstanceState.getParcelableArrayList(getString(R.string.bundle_categories));
+            mWelcomeTextView.setVisibility(View.GONE);
         } else {
             mCategories = new ArrayList<>();
         }
@@ -200,22 +202,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Bundle arguments = new Bundle();
-
+        Category selectedCategory = null;
         switch (item.getItemId()) {
             case R.id.nav_category_all:
-                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(0));
+                selectedCategory = mCategories.get(0);
                 break;
             case R.id.nav_category_articles:
-                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(1));
+                selectedCategory = mCategories.get(1);
                 break;
             case R.id.nav_category_generated:
-                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(2));
+                selectedCategory = mCategories.get(2);
                 break;
             case R.id.nav_category_news:
-                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(3));
+                selectedCategory = mCategories.get(3);
                 break;
             case R.id.nav_category_reviews:
-                arguments.putParcelable(getString(R.string.intent_category), mCategories.get(4));
+                selectedCategory = mCategories.get(4);
                 break;
             case R.id.nav_add:
                 showFeedsSourceDialog();
@@ -223,15 +225,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
         }
 
-        if(mWelcomeTextView.getVisibility() == View.VISIBLE){
+        if (selectedCategory != null) {
+            FeedsFetchingUtilities.scheduleFeedsReload(this, selectedCategory);
+
+            arguments.putParcelable(getString(R.string.intent_category), selectedCategory);
+            FeedsFragment fragment = new FeedsFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.feeds_container, fragment)
+                    .commit();
+
             mWelcomeTextView.setVisibility(View.GONE);
         }
 
-        FeedsFragment fragment = new FeedsFragment();
-        fragment.setArguments(arguments);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.feeds_container, fragment)
-                .commit();
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -320,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private void showFeedsSourceDialog(){
+    private void showFeedsSourceDialog() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         //AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext(), R.style.CustomDialogTheme);
 

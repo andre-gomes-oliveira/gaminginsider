@@ -65,7 +65,7 @@ public class ArticleFragment extends Fragment {
         }
 
         if(savedInstanceState != null){
-            mContentView.saveState(savedInstanceState);
+            mContentView.restoreState(savedInstanceState);
         }
 
         return rootView;

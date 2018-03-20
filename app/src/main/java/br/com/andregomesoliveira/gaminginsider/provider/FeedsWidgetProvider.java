@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.prof.rssparser.Article;
+
 import java.util.ArrayList;
 
 import br.com.andregomesoliveira.gaminginsider.R;
 import br.com.andregomesoliveira.gaminginsider.ui.MainActivity;
+import br.com.andregomesoliveira.gaminginsider.utils.ParserUtilities;
 
 public class FeedsWidgetProvider extends AppWidgetProvider {
 
@@ -26,7 +29,7 @@ public class FeedsWidgetProvider extends AppWidgetProvider {
                 context.getString(R.string.intent_widget_feeds), articles);
         serviceIntent.putStringArrayListExtra(
                 context.getString(R.string.intent_widget_links), links);
-        views.setRemoteAdapter(R.id.appwidget_ingredient_list, serviceIntent);
+        views.setRemoteAdapter(R.id.appwidget_feeds_list, serviceIntent);
 
         //The pending intent that launches the app if no feed is being displayed
         Intent activityIntent = new Intent(context, MainActivity.class);

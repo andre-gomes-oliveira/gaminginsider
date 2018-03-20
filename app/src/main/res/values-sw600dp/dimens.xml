@@ -5,6 +5,7 @@
     <dimen name="article_title_text_size">24sp</dimen>
     <dimen name="article_subtitle_text_size">16sp</dimen>
     <dimen name="article_body_text_size">20sp</dimen>
+    <dimen name="article_header_image_height">300dp</dimen>
 
     <!-- Card View -->
     <dimen name="card_vertical_margin">8dp</dimen>

@@ -1,7 +1,9 @@
 package br.com.andregomesoliveira.gaminginsider.provider;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -35,12 +37,24 @@ class ArticlesProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDestroy() {
-        mArticles.clear();
+        if(mArticles != null){
+            mArticles.clear();
+        }
+
+        if(mLinks != null){
+            mLinks.clear();
+        }
     }
 
     @Override
     public int getCount() {
-        return mArticles.size();
+        if(mArticles != null){
+            return mArticles.size();
+        }
+
+        else{
+            return 0;
+        }
     }
 
     @Override
@@ -51,9 +65,11 @@ class ArticlesProvider implements RemoteViewsService.RemoteViewsFactory {
         RemoteViews rv = new RemoteViews(mContext.getPackageName(),
                 R.layout.feeds_widget_list_item);
         rv.setTextViewText(R.id.appwidget_feed_title, title);
-
-        //TODO: Include the links to open the articles
-        rv.setEmptyView(R.id.appwidget_ingredient_list, R.id.empty_view);
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0,
+                webIntent, 0);
+        rv.setOnClickPendingIntent(R.id.appwidget_feed_title, pendingIntent);
+        rv.setEmptyView(R.id.appwidget_feeds_list, R.id.empty_view);
         return rv;
     }
 

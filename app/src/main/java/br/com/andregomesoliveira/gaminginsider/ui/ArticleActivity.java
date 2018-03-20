@@ -76,8 +76,6 @@ public class ArticleActivity extends AppCompatActivity {
             mArticleImageUrl = savedInstanceState.getString(getString(R.string.bundle_article_image));
         }
 
-        mAppBarLayout.setTitle(mArticleTitle);
-
         if (mArticleImageUrl != null &&
                 !mArticleImageUrl.isEmpty()) {
             Picasso.with(getBaseContext())
@@ -90,6 +88,8 @@ public class ArticleActivity extends AppCompatActivity {
         else{
             mImageView.setVisibility(View.GONE);
         }
+
+        mAppBarLayout.setTitle(mArticleTitle);
     }
 
     @Override

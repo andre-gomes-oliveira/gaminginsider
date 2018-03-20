@@ -13,19 +13,25 @@ import com.firebase.jobdispatcher.Trigger;
 
 import java.util.concurrent.TimeUnit;
 
+import br.com.andregomesoliveira.gaminginsider.model.Category;
 import br.com.andregomesoliveira.gaminginsider.provider.FeedsUpdateJobService;
 
-class FeedsFetchingUtilities {
-    private static final int RELOADING_INTERVAL_MINUTES = 30; // Good time both for the widget as well as to wait for actual news
+import static br.com.andregomesoliveira.gaminginsider.utils.ParserUtilities.setCurrentCategory;
+
+public class FeedsFetchingUtilities {
+    private static final int RELOADING_INTERVAL_MINUTES = 1; // Good time both for the widget as well as to wait for actual news
     private static final int RELOADING_INTERVAL_SECONDS = (int) (TimeUnit.MINUTES.toSeconds(RELOADING_INTERVAL_MINUTES));
     private static final int SYNC_FLEXTIME_SECONDS = RELOADING_INTERVAL_SECONDS;
 
     private static final String RELOADING_JOB_TAG = "feeds_reloading_tag";
 
-    //TODO: Figure out the best place to call this
-
     /* Testes showed that I can not pass array lists here... */
-    synchronized public static void scheduleFeedsreload(@NonNull final Context context) {
+    synchronized public static void scheduleFeedsReload(@NonNull final Context context,
+                                                        @NonNull final Category category) {
+        //Updating the category so that the job will continuously fetch from the one the user selected
+        setCurrentCategory(category);
+
+        //Dispatching the job that will keep the feeds updated
         Driver driver = new GooglePlayDriver(context);
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
 

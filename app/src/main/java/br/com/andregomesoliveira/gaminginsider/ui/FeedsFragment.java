@@ -26,6 +26,7 @@ import java.util.Map;
 import br.com.andregomesoliveira.gaminginsider.R;
 import br.com.andregomesoliveira.gaminginsider.adapter.ArticleAdapter;
 import br.com.andregomesoliveira.gaminginsider.model.Category;
+import br.com.andregomesoliveira.gaminginsider.provider.FeedsIntentService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -160,6 +161,16 @@ public class FeedsFragment extends Fragment {
                     public void onTaskCompleted(ArrayList<Article> articles) {
                         if (mAdapter == null) {
                             mAdapter = new ArticleAdapter(articles, context);
+
+                            ArrayList<String> titles, links;
+                            titles = new ArrayList<>();
+                            links = new ArrayList<>();
+
+                            for (Article article : articles){
+                                titles.add(article.getTitle());
+                                links.add(article.getLink());
+                            }
+
                             mRecyclerView.setAdapter(mAdapter);
                         } else {
                             mAdapter.getArticles().addAll(articles);

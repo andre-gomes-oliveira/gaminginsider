@@ -33,6 +33,7 @@
             android:name=".ui.ArticleActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
