@@ -10,6 +10,7 @@ import android.widget.RemoteViewsService;
 import java.util.ArrayList;
 
 import br.com.andregomesoliveira.gaminginsider.R;
+import br.com.andregomesoliveira.gaminginsider.ui.ArticleActivity;
 
 class ArticlesProvider implements RemoteViewsService.RemoteViewsFactory {
 
@@ -64,11 +65,19 @@ class ArticlesProvider implements RemoteViewsService.RemoteViewsFactory {
 
         RemoteViews rv = new RemoteViews(mContext.getPackageName(),
                 R.layout.feeds_widget_list_item);
+
         rv.setTextViewText(R.id.appwidget_feed_title, title);
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+
+        Class destinationClass = ArticleActivity.class;
+        Intent articleIntent = new Intent(mContext, destinationClass);
+        articleIntent.putExtra(mContext.getString(R.string.intent_article_link), link);
+        articleIntent.putExtra(mContext.getString(R.string.intent_article_title), title);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0,
-                webIntent, 0);
-        rv.setOnClickPendingIntent(R.id.appwidget_feed_title, pendingIntent);
+                articleIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        rv.setOnClickPendingIntent(R.id.tv_widget_title, pendingIntent);
+
         rv.setEmptyView(R.id.appwidget_feeds_list, R.id.empty_view);
         return rv;
     }
@@ -81,7 +90,7 @@ class ArticlesProvider implements RemoteViewsService.RemoteViewsFactory {
     @Override
     public int getViewTypeCount() {
         //Displaying ImageButtons and TextViews
-        return 2;
+        return 1;
     }
 
     @Override

@@ -2,12 +2,13 @@
     <!-- ui items -->
     <string name="action_logout">Sign out</string>
     <string name="firebase_categories">Categories</string>
-    <string name="appwidget_text">Click here to open the app to begin fetching news!</string>
+    <string name="appwidget_text">Open the app and select a category to begin fetching news!</string>
     <string name="dialog_message">Add new feeds source</string>
     <string name="dialog_confirm">Add</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="welcome_message">Welcome to Gaming Insider!
         \nSelect a category from the navigation header to start reading news.</string>
+    <string name="widget_title">Latest feeds</string>
 
     <!-- Menus -->
     <string name="menu_add">Add new RSS feed</string>

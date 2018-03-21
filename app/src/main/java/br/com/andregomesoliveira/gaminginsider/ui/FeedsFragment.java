@@ -56,9 +56,6 @@ public class FeedsFragment extends Fragment {
     @BindView(R.id.pb_feeds_loading_indicator)
     ProgressBar mProgressBar;
 
-    public FeedsFragment() {
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +159,8 @@ public class FeedsFragment extends Fragment {
                         if (mAdapter == null) {
                             mAdapter = new ArticleAdapter(articles, context);
 
+                            // The first update to the widget
+                            // From this point forward the JobDispatcher handles these updates
                             ArrayList<String> titles, links;
                             titles = new ArrayList<>();
                             links = new ArrayList<>();
@@ -170,6 +169,7 @@ public class FeedsFragment extends Fragment {
                                 titles.add(article.getTitle());
                                 links.add(article.getLink());
                             }
+                            FeedsIntentService.startActionUpdateFeedsWidgets(context, titles, links);
 
                             mRecyclerView.setAdapter(mAdapter);
                         } else {
@@ -179,6 +179,7 @@ public class FeedsFragment extends Fragment {
 
                         mProgressBar.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
+
                     }
 
                     @Override

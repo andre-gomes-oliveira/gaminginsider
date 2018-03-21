@@ -3,12 +3,13 @@
     <!-- Itens de interface -->
     <string name="action_logout">Configurações</string>
     <string name="firebase_categories">Categorias</string>
-    <string name="appwidget_text">Clique aqui para abrir o app e começar a carregar as notícias</string>
+    <string name="appwidget_text">Abra o app e selecione uma categoria para começar a carregar as notícias</string>
     <string name="dialog_message">Adicionar nova fonte de notícias</string>
     <string name="dialog_confirm">Adicionar</string>
     <string name="dialog_cancel">Cancelar</string>
     <string name="welcome_message">Bem-vindo(a) ao Gaming Insider!
         \nSelecione uma categoria na gaveta de naveção para começar a ler suas notícias.</string>
+    <string name="widget_title">Últimas notícias</string>
 
     <!-- Menus -->
     <string name="menu_add">Adicionar uma novo feed RSS</string>

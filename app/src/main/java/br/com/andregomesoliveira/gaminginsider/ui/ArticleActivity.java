@@ -60,7 +60,6 @@ public class ArticleActivity extends AppCompatActivity {
             arguments.putString(getString(R.string.intent_article_description),
                     starterIntent.getStringExtra(getString(R.string.intent_article_description)));
 
-
             ArticleFragment fragment = new ArticleFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

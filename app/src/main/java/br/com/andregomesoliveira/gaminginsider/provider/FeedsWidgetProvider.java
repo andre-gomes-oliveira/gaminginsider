@@ -34,18 +34,11 @@ public class FeedsWidgetProvider extends AppWidgetProvider {
         //The pending intent that launches the app if no feed is being displayed
         Intent activityIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                activityIntent, 0);
+                activityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.empty_view, pendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-                         int[] appWidgetIds) {
-
-        FeedsIntentService.startActionUpdateFeedsWidgets(context, null, null);
     }
 
     public static void updateFeedsWidgets(Context context, AppWidgetManager appWidgetManager,
